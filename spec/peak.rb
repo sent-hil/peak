@@ -47,7 +47,7 @@ describe Peak do
         Peak.fetcher(:elasticsearch) {}
 
         Peak.metric :indiana_jones do
-          register_fetcher :elasticsearch, :query => 'grail'
+          fetcher :elasticsearch, :query => 'grail'
         end
       end.not_to raise_exception
     end

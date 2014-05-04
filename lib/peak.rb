@@ -1,8 +1,10 @@
 module Peak
   class << self
     def clear
-      @metrics  = []
-      @fetchers = {}
+      @metrics    = []
+      @fetchers   = {}
+      @algorithms = {}
+      @alerters   = {}
     end
 
     def metrics
@@ -49,7 +51,7 @@ module Peak
   end
 
   class Metric
-    attr_reader :description, :fetcher
+    attr_reader :description
 
     def initialize(name)
       @name = name
@@ -59,10 +61,10 @@ module Peak
       @description = text
     end
 
-    def register_fetcher(name, args)
+    def fetcher(name, args)
       @fetcher = Peak.fetchers[name]
 
-      unless fetcher
+      unless @fetcher
         raise "No fetcher found with name #{name}"
       end
 
