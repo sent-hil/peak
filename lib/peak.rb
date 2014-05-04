@@ -2,12 +2,6 @@ module Peak
   class << self
     attr_reader :metrics, :fetchers, :algorithms, :alerters
 
-    def clear
-      instance_variables.each do |var|
-        instance_variable_set(var, nil)
-      end
-    end
-
     def metric(name, &blk)
       metric = Metric.new(name)
       metric.instance_eval(&blk)  if block_given?

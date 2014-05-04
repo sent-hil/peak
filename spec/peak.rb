@@ -1,5 +1,13 @@
 require_relative 'spec_helper'
 
+module Peak
+  def self.clear
+    instance_variables.each do |var|
+      instance_variable_set(var, nil)
+    end
+  end
+end
+
 describe Peak do
   before do
     Peak.clear
