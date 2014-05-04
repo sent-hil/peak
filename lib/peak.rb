@@ -1,45 +1,34 @@
 module Peak
   class << self
-    def clear
-      @metrics    = []
-      @fetchers   = {}
-      @algorithms = {}
-      @alerters   = {}
-    end
+    attr_reader :metrics, :fetchers, :algorithms, :alerters
 
-    def metrics
-      @metrics ||= []
+    def clear
+      instance_variables.each do |var|
+        instance_variable_set(var, nil)
+      end
     end
 
     def metric(name, &blk)
       metric = Metric.new(name)
       metric.instance_eval(&blk)  if block_given?
 
-      metrics << metric
-    end
-
-    def fetchers
-      @fetchers ||= {}
+      @metrics ||= []
+      @metrics << metric
     end
 
     def fetcher(name, &blk)
-      fetchers[name] = blk
-    end
-
-    def algorithms
-      @algorithms ||= {}
+      @fetchers ||= {}
+      @fetchers[name] = blk
     end
 
     def algorithm(name, &blk)
-      algorithms[name] = blk
-    end
-
-    def alerters
-      @alerters ||= {}
+      @algorithms ||= {}
+      @algorithms[name] = blk
     end
 
     def alerter(name, &blk)
-      alerters[name] = blk
+      @alerters ||= {}
+      @alerters[name] = blk
     end
   end
 
