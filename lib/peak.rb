@@ -1,3 +1,5 @@
+require 'time'
+
 module Peak
   class << self
     attr_reader :metrics, :fetchers, :algorithms, :alerters
@@ -26,3 +28,6 @@ module Peak
     end
   end
 end
+
+require_relative './peak/metric'
+require_relative './peak/fetchers/elasticsearch'
