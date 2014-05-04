@@ -13,12 +13,11 @@ At the it's heart, Peak consists of four things:
 Here's a simple example:
 
 ```ruby
-Peak.metric(:signups) do
-  describe << end
-  end
+Peak.metric :signups do
+  describe "Number of new users per day.""
 
   fetcher(:elasticsearch,
-    {:query => "signup", :index => "logstash"}
+    {:query => "signup", :index => "analytics", :interval => "%d"}
   )
 
   algorithm :less_than_10_percent
