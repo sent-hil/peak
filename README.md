@@ -27,7 +27,7 @@ Peak.metric(:signups) do
 end
 ```
 
-In above example we register an metric called :signups. This metric is fetched from Elasticsearch using query options passed to it, uses `:less_than_10_percent` algorithm and when that matches, it calls `:slack` alerter.
+In above example we register an metric called `:signups`. This metric is fetched from `elasticsearch` fetcher using query options passed to it, checks against `:less_than_10_percent` algorithm and when that matches, it calls `:slack` alerter.
 
 List of fetchers:
 * :elasticsearch
