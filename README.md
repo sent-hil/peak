@@ -14,11 +14,16 @@ Here's a simple example:
 
 ```ruby
 Peak.metric :signups do
-  describe "Number of new users per day.""
+  describe "Number of new users per day."
 
-  fetcher(:elasticsearch,
-    {:query => "signup", :index => "analytics", :interval => "%d"}
-  )
+  fetcher(:elasticsearch, {
+    :query    => "signup",
+    :index    => "analytics",
+    :field    => "@timestamp",
+    :interval => "12h",
+    :from     => "2014-12-01",
+    :till     => "now"
+  })
 
   algorithm :less_than_10_percent
 
@@ -39,4 +44,4 @@ List of algorithms:
 * :no_new_entries
 
 List of alerters:
-* slack
+* :slack
