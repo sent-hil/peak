@@ -32,5 +32,7 @@ module Peak
   end
 end
 
+require_relative './peak/core_ext/enumerable'
 require_relative './peak/metric'
 require_relative './peak/fetchers/elasticsearch'
+require_relative './peak/algorithms/rise'
