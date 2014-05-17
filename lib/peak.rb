@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 
 module Peak
   class << self
@@ -12,19 +13,21 @@ module Peak
       @metrics << metric
     end
 
-    def fetcher(name, &blk)
-      @fetchers ||= {}
-      @fetchers[name] = blk
-    end
+    # Defines method that takes name and blk as arguments,
+    # stores them in a hash with same name as method.
+    #
+    # Example:
+    #   def fetcher(name, &blk)
+    #     @fetchers ||= {}
+    #     @fetchers[name] = blk
+    #   end
+    [:fetcher, :algorithm, :alerter].each do |method|
+      define_method method do |name, &blk|
+        ivar = instance_variable_get("@#{method}s") || {}
+        ivar[name] = blk
 
-    def algorithm(name, &blk)
-      @algorithms ||= {}
-      @algorithms[name] = blk
-    end
-
-    def alerter(name, &blk)
-      @alerters ||= {}
-      @alerters[name] = blk
+        instance_variable_set "@#{method}s", ivar
+      end
     end
   end
 end
