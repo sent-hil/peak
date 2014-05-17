@@ -1,17 +1,31 @@
 require_relative 'spec_helper'
 
 module Peak
-  def self.clear
-    instance_variables.each do |var|
-      instance_variable_set(var, nil)
+  class << self
+    def store
+      @store ||= {}
+    end
+
+    def clear
+      instance_variables.each do |var|
+        store[var] ||= {}
+        store[var] = instance_variable_get(var)
+
+        instance_variable_set(var, nil)
+      end
+    end
+
+    def replace
+      store.each do |key, value|
+        instance_variable_set(key, value)
+      end
     end
   end
 end
 
 describe Peak do
-  before do
-    Peak.clear
-  end
+  before(:all) { Peak.clear }
+  after(:all) { Peak.replace }
 
   context 'fetcher' do
     it 'registers a fetcher with name and args' do
@@ -46,7 +60,7 @@ describe Peak do
         describe 'famous archaeologist'
       end
 
-      met = Peak.metrics.first
+      met = Peak.metrics.last
       met.description.should == 'famous archaeologist'
     end
 
