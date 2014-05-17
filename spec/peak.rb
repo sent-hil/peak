@@ -1,43 +1,17 @@
 require_relative 'spec_helper'
 
-module Peak
-  class << self
-    def store
-      @store ||= {}
-    end
-
-    def clear
-      instance_variables.each do |var|
-        store[var] ||= {}
-        store[var] = instance_variable_get(var)
-
-        instance_variable_set(var, nil)
-      end
-    end
-
-    def replace
-      store.each do |key, value|
-        instance_variable_set(key, value)
-      end
-    end
-  end
-end
-
 describe Peak do
-  before(:all) { Peak.clear }
-  after(:all) { Peak.replace }
-
   context 'fetcher' do
-    it 'registers a fetcher with name and args' do
-      Peak.fetcher(:elasticsearch) {}
-      Peak.fetchers.count.should == 1
+    it 'registers fetcher with name' do
+      expect {Peak.fetcher(:test_elasticsearch) {}}.
+        to change{Peak.fetchers.count}.by 1
     end
   end
 
   context 'algorithm' do
     it 'registers algorithm with name' do
-      Peak.algorithm(:peak) {}
-      Peak.algorithms.count.should == 1
+      expect {Peak.algorithm(:peak) {}}.
+        to change {Peak.algorithms.count}.by 1
     end
   end
 
@@ -51,7 +25,6 @@ describe Peak do
   context 'metric' do
     it 'registers a metric to be tracked' do
       Peak.metric :indiana_jones
-
       Peak.metrics.count.should == 1
     end
 
