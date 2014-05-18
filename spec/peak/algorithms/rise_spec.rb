@@ -27,4 +27,9 @@ describe Peak::Algorithms do
     resp = subject.call [1,1,1,1,1]
     resp.result.should == false
   end
+
+  it 'returns true if no std dev and last entry is not same' do
+    resp = subject.call [1,1,1,1,2]
+    resp.result.should == true
+  end
 end
