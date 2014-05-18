@@ -18,8 +18,13 @@ describe Peak::Algorithms do
     resp.result.should == true
   end
 
-  it 'returns false if last entry is less than x*std dev' do
-    resp = subject.call [1,1,2,2,1.5]
+  it 'returns true if last entry is less than x*std dev' do
+    resp = subject.call [100,100,100,90,1]
+    resp.result.should == true
+  end
+
+  it 'returns false if last entry is not less than x*std dev' do
+    resp = subject.call [2,2,1,2,2]
     resp.result.should == false
   end
 
