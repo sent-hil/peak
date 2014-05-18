@@ -1,18 +1,12 @@
 require_relative './response'
+require_relative './algorithms'
 
 module Peak
   module Algorithms
-    Peak.algorithm(:drop) do |data|
-      last = data.pop
-      deviation = data.std_dev
-
-      result = if deviation == 0
-        last == data[-1] ? false : true
-      else
+    Peak.algorithm :drop do |data|
+      Algorithms.rise_drop_common :drop, data do |last, deviation|
         last < 3*deviation ? true : false
       end
-
-      Response.new(:drop, result, {:deviation => deviation})
     end
   end
 end
