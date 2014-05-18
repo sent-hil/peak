@@ -1,12 +1,12 @@
 Peak
 ----
 
-Peak is an anamoly detection service for your metrics. The project began when we wanted to automate anamoly detection, but existing solutions like Skyline and Nagios weren't suitable.
+Peak is an anamoly detection service for your metrics. The project began when I wanted to automate anamoly detection, but existing solutions weren't good enough.
 
-At the it's heart, Peak consists of four things:
+At its heart, Peak consists of four things:
 
-* Metric    - item you want to monitor and detect anamoly
-* Fetcher   - source you want to pull the metrics from
+* Metric    - item you want to monitor and detect anamolies
+* Fetcher   - source to pull the metrics from
 * Algorithm - determine if metric is an anamoly
 * Alerter   - alert when metric is an anamoly
 
