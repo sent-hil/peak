@@ -1,6 +1,6 @@
 require_relative '../../spec_helper'
 
-describe Peak::Algorithms do
+describe 'Peak::Algorithms#drop' do
   subject { Peak.algorithms[:drop] }
 
   it 'returns algorithms name as part of result' do
