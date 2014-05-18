@@ -6,7 +6,7 @@ module Peak
     attr_reader :metrics, :fetchers, :algorithms, :alerters
 
     def metric(name, &blk)
-      metric = Metric.new(name)
+      metric = Metric.new name
       metric.instance_eval(&blk)  if block_given?
 
       @metrics ||= []
