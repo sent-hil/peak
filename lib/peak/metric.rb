@@ -10,7 +10,7 @@ module Peak
       @description = text
     end
 
-    def fetcher(name, args)
+    def fetcher(name, args={})
       @fetcher = Peak.fetchers[name]
 
       unless @fetcher
@@ -18,6 +18,10 @@ module Peak
       end
 
       @fetcher_args = args
+    end
+
+    def fetch
+      @fetcher.call @fetcher_args
     end
   end
 end
