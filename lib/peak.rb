@@ -28,6 +28,10 @@ module Peak
 
         instance_variable_set "@#{method}s", ivar
       end
+
+      define_method "get_#{method}" do |name|
+        instance_variable_get("@#{method}s")
+      end
     end
   end
 end
